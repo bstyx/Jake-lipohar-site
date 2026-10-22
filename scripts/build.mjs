@@ -3,6 +3,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import matter from "gray-matter";
 import { Marked } from "marked";
+import { extractDataImages } from "./inline-images.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const siteDir = path.join(root, "site");
@@ -114,7 +115,19 @@ function loadPosts() {
   const posts = files.map((name) => {
     const slug = name.replace(/\.md$/, "");
     const raw = fs.readFileSync(path.join(postsDir, name), "utf8");
-    const parsed = matter(raw);
+    const extracted = extractDataImages(raw, {
+      slug,
+      destDir: path.join(distDir, "img", "blog"),
+    });
+    if (extracted.count) {
+      console.warn(`Saved ${extracted.count} pasted photo(s) from ${name} as files`);
+    }
+    let parsed;
+    try {
+      parsed = matter(extracted.value);
+    } catch (error) {
+      throw new Error(`${name} could not be read (${error.message})`);
+    }
     const data = parsed.data || {};
     if (!data.title) throw new Error(`${name} is missing a title`);
     if (!data.category) throw new Error(`${name} is missing a category`);

@@ -10,6 +10,8 @@
 </head>
 <body>
   <noscript>The editor needs JavaScript. Open this page in a normal browser.</noscript>
+  <!-- Before Decap, so a pasted photo is stored as a file instead of a data URL. The address is absolute because /admin has no trailing slash. -->
+  <script src="/admin/paste-image.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/decap-cms@3.17.1/dist/decap-cms.js" integrity="sha384-d2pbrhjc5asvSK35gKkrgRIk0Wq+2CQynWnXtSsYWQawXCgBXhcAK737jBAKXT4T" crossorigin="anonymous"></script>
   <script>
     var PostPreview = createClass({

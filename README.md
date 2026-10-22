@@ -16,7 +16,7 @@ Decap is the smallest setup that does that on Vercel. TinaCMS wants Tina Cloud o
 2. Choose **Login with GitHub** and approve the prompt. Use the GitHub account that was invited to this repo.
 3. Choose **Blog posts**, then **New Blog post**.
 4. Fill in the title, the date, Freediving or Travel & hiking, a cover photo, a short excerpt, and the story.
-5. In the story, the buttons add a heading, bold, italic, a link, a quote, a list, or a photo. The cover photo is the one on the home page and the blog list. Photos inside the story are added with the image button.
+5. In the story, the buttons add a heading, bold, italic, a link, a quote, a list, or a photo. Pasting a photo into the story uploads it as a file as well. The cover photo is the one on the home page and the blog list. Photos inside the story are added by pasting or with the image button.
 6. Press **Publish**.
 7. Wait a couple of minutes, then refresh the site. The new post is on the blog, and if it is one of the three newest it is also under **Latest from the blog** on the home page.
 

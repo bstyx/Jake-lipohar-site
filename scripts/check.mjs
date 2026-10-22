@@ -1,8 +1,10 @@
 import fs from "fs";
+import os from "os";
 import path from "path";
 import { createRequire } from "module";
 import { fileURLToPath } from "url";
 import yaml from "js-yaml";
+import { extractDataImages } from "./inline-images.mjs";
 
 const require = createRequire(import.meta.url);
 const { startLogin, finishLogin, REDIRECT_URI } = require("../lib/github-oauth.js");
@@ -96,9 +98,33 @@ assert(config.backend.auth_endpoint === "api/auth", "CMS auth endpoint is wrong"
 assert(config.backend.branch === "main", "CMS branch is wrong");
 assert(config.publish_mode === "simple", "posts should publish straight to main");
 assert(config.media_folder === "site/img/blog", "uploads should be stored in the repo");
+assert(config.public_folder === "/img/blog", "uploaded photos should be served from /img/blog");
+assert(config.media_processing && config.media_processing.enabled === true, "uploads should be resized");
+assert(config.media_processing.format && config.media_processing.format.default === "jpeg", "uploads should be saved as JPEG");
+assert(config.media_processing.width === 2000, "uploads should be limited to 2000 pixels wide");
 assert(config.collections[0].folder === "content/posts", "posts folder is wrong");
-assert(config.collections[0].fields.some((field) => field.name === "body" && field.widget === "markdown"), "story field missing");
+const story = config.collections[0].fields.find((field) => field.name === "body");
+assert(story && story.widget === "markdown", "story field missing");
+assert(Array.isArray(story.editor_components) && story.editor_components.includes("image"), "the story field should accept photos");
 assert(config.collections[0].fields.some((field) => field.name === "cover" && field.widget === "image"), "cover field missing");
+assert(read("admin/index.html").includes('src="/admin/paste-image.js"'), "admin should load the paste helper from /admin");
+assert(fs.existsSync(path.join(dist, "admin/paste-image.js")), "paste helper was not copied");
+const pasteHelper = fs.readFileSync(path.join(dist, "admin/paste-image.js"), "utf8");
+assert(pasteHelper.includes("site/img/blog") && pasteHelper.includes("/img/blog"), "paste helper should store photos in the blog media folder");
+assert(read("style.css").includes(".post-body img{width:100%;max-width:100%;height:auto;border-radius:16px}"), "post photos should stay within the column");
+assert(!read("blog.html").includes("data:image") && !read("index.html").includes("data:image"), "built pages should not contain inline photo data");
+
+const pastedDir = fs.mkdtempSync(path.join(os.tmpdir(), "pasted-photo-"));
+const png = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==";
+const extracted = extractDataImages(`Hello\n\n![boat](data:image/png;base64,${png})\n\nAfter`, {
+  slug: "demo",
+  destDir: pastedDir,
+});
+assert(extracted.count === 1, "a pasted data URL should become one file");
+assert(extracted.value.includes("/img/blog/demo-pasted-1.png") && !extracted.value.includes("data:image"), "the story should point at the saved file");
+assert(fs.readFileSync(path.join(pastedDir, "demo-pasted-1.png")).length > 8, "the saved photo should be a real file");
+const svg = extractDataImages("![x](data:image/svg+xml;base64,PHN2Zy8+)", { slug: "svg", destDir: pastedDir });
+assert(!svg.value.includes("data:image") && svg.count === 0, "SVG data should not be published");
 
 const ice = read("blog/trapped-under-ice.html");
 assert(ice.includes("youtube.com/watch?v=455-CIgc7co"), "ice post lost the song link");
@@ -226,8 +252,12 @@ function compareToOriginal(dir) {
     assert(a.equals(b), `${rel} differs from the current site`);
   }
   const oldCss = fs.readFileSync(path.join(dir, "style.css"), "utf8");
-  const newCss = read("style.css").replace(".post-body h3{font-size:1.35rem;margin:1.8rem 0 .75rem}\n.post-body h4{font-size:1.15rem;margin:1.5rem 0 .6rem;color:var(--ink);letter-spacing:-.02em}\n", "");
-  assert(oldCss === newCss, "style.css changed outside the post heading rules");
+  const newCss = read("style.css")
+    .replace(".post-body{font-size:1.1rem;line-height:1.75;overflow-wrap:anywhere}\n", ".post-body{font-size:1.1rem;line-height:1.75}\n")
+    .replace(".post-body figure{margin:1.8rem 0;max-width:100%}\n", ".post-body figure{margin:1.8rem 0}\n")
+    .replace(".post-body img{width:100%;max-width:100%;height:auto;border-radius:16px}\n", ".post-body img{width:100%;height:auto;border-radius:16px}\n")
+    .replace(".post-body h3{font-size:1.35rem;margin:1.8rem 0 .75rem}\n.post-body h4{font-size:1.15rem;margin:1.5rem 0 .6rem;color:var(--ink);letter-spacing:-.02em}\n", "");
+  assert(oldCss === newCss, "style.css changed outside the post heading and photo rules");
 
   const strip = (html) => html.replace(/<div class="post-grid reveal">[\s\S]*?<p class="center">/, "<p class=\"center\">");
   assert(strip(fs.readFileSync(path.join(dir, "index.html"), "utf8")) === strip(read("index.html")), "home page changed outside the blog teaser");

@@ -18,8 +18,18 @@ publish_mode: simple
 site_url: https://www.jakelipohar.ca
 display_url: https://www.jakelipohar.ca
 logo_url: https://www.jakelipohar.ca/hero.jpg
+# Photos are committed under site/img/blog and the built site serves them at /img/blog.
 media_folder: site/img/blog
 public_folder: /img/blog
+# Re-encode uploads so a phone photo is not committed at full size.
+media_processing:
+  enabled: true
+  format:
+    enabled: true
+    default: jpeg
+  quality: 80
+  strip_metadata: true
+  width: 2000
 
 collections:
   - name: posts
@@ -68,7 +78,7 @@ collections:
         name: cover
         widget: image
         required: true
-        hint: "The photo on the home page and the blog list. To put photos inside the story, use the image button in the story itself."
+        hint: "The photo on the home page and the blog list. Large phone photos are resized automatically. To put photos inside the story, paste one in or use the image button."
       - label: Excerpt
         name: excerpt
         widget: text
@@ -76,7 +86,7 @@ collections:
       - label: Story
         name: body
         widget: markdown
-        hint: "Write the post. Use the buttons for a heading, bold, a list, a link, or a photo."
+        hint: "Write the post. Use the buttons for a heading, bold, a list, a link, or a photo. You can paste a photo straight into the story. It is saved as a file, not pasted into the text."
         buttons:
           - bold
           - italic

@@ -316,11 +316,11 @@ mark{background:rgba(251,191,36,.2);color:#fde68a;padding:.05rem .35rem;border-r
 .post-card .card-link{color:#0a6f66}
 .post-card[hidden]{display:none}
 .post-body,.post-cta{max-width:46rem}
-.post-body{font-size:1.1rem;line-height:1.75}
+.post-body{font-size:1.1rem;line-height:1.75;overflow-wrap:anywhere}
 .post-body p{color:#243f4d;margin-bottom:1.2rem}
 .post-body h2{font-size:1.7rem;margin:2.2rem 0 1rem}
-.post-body figure{margin:1.8rem 0}
-.post-body img{width:100%;height:auto;border-radius:16px}
+.post-body figure{margin:1.8rem 0;max-width:100%}
+.post-body img{width:100%;max-width:100%;height:auto;border-radius:16px}
 .post-body figcaption{font-size:.9rem;color:var(--muted-ink);margin-top:.5rem}
 .post-body blockquote{margin:1.5rem 0;padding:.2rem 0 .2rem 1.2rem;border-left:4px solid var(--teal);color:#27495a}
 .post-body ul,.post-body ol{padding-left:1.3rem;color:#243f4d}
