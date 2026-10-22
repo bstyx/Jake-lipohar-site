@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Write a post | Jake Lipohar</title>
+</head>
+<body>
+  <noscript>The editor needs JavaScript. Open this page in a normal browser.</noscript>
+  <script src="https://cdn.jsdelivr.net/npm/decap-cms@3.17.1/dist/decap-cms.js" integrity="sha384-d2pbrhjc5asvSK35gKkrgRIk0Wq+2CQynWnXtSsYWQawXCgBXhcAK737jBAKXT4T" crossorigin="anonymous"></script>
+  <script>
+    var PostPreview = createClass({
+      render: function () {
+        var data = this.props.entry.get("data");
+        var title = data && data.get("title");
+        var date = data && data.get("date");
+        var category = data && data.get("category");
+        var cover = data && data.get("cover");
+        var excerpt = data && data.get("excerpt");
+        return h("div", { className: "light", style: { minHeight: "100vh", padding: "2rem 1.2rem 4rem" } },
+          h("p", { className: "eyebrow" }, [date ? String(date).slice(0, 10) : "", category ? " · " + category : ""].join("")),
+          h("h1", { style: { fontSize: "2.4rem", maxWidth: "18ch" } }, title || "Untitled"),
+          excerpt ? h("p", { className: "sub" }, excerpt) : null,
+          cover ? h("img", { src: cover, alt: "", style: { width: "100%", maxWidth: "46rem", borderRadius: "16px", margin: "1.2rem 0" } }) : null,
+          h("div", { className: "post-body" }, this.props.widgetFor("body"))
+        );
+      }
+    });
+    CMS.registerPreviewStyle("/style.css");
+    CMS.registerPreviewTemplate("posts", PostPreview);
+  </script>
+</body>
+</html>

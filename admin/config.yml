@@ -1,0 +1,104 @@
+# Blog editor for www.jakelipohar.ca/admin
+# Decap CMS commits Markdown to this repo. Vercel rebuilds the site.
+backend:
+  name: github
+  repo: bstyx/jake-lipohar-site
+  branch: main
+  base_url: https://www.jakelipohar.ca
+  auth_endpoint: api/auth
+  site_domain: www.jakelipohar.ca
+  commit_messages:
+    create: 'Publish blog post "{{slug}}"'
+    update: 'Update blog post "{{slug}}"'
+    delete: 'Remove blog post "{{slug}}"'
+    uploadMedia: 'Add photo "{{path}}"'
+    deleteMedia: 'Remove photo "{{path}}"'
+
+publish_mode: simple
+site_url: https://www.jakelipohar.ca
+display_url: https://www.jakelipohar.ca
+logo_url: https://www.jakelipohar.ca/hero.jpg
+media_folder: site/img/blog
+public_folder: /img/blog
+
+collections:
+  - name: posts
+    label: Blog posts
+    label_singular: Blog post
+    folder: content/posts
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    extension: md
+    format: frontmatter
+    identifier_field: title
+    summary: "{{date}} — {{title}}"
+    sortable_fields: ["date", "title"]
+    preview_path: "blog/{{slug}}.html"
+    view_filters:
+      - label: Freediving
+        field: category
+        pattern: Freediving
+      - label: "Travel & hiking"
+        field: category
+        pattern: "Travel & hiking"
+    fields:
+      - label: Title
+        name: title
+        widget: string
+        hint: "The headline. The web address is chosen from this title the first time you publish, and it stays put if you edit the title later."
+      - label: Date
+        name: date
+        widget: datetime
+        date_format: "MMMM D, YYYY"
+        time_format: false
+        format: "YYYY-MM-DD"
+        picker_utc: true
+        default: "{{now}}"
+        hint: "Newest posts show first, including the three on the home page."
+      - label: Category
+        name: category
+        widget: select
+        default: Freediving
+        options:
+          - Freediving
+          - "Travel & hiking"
+        hint: "This is the filter on the blog page. Freediving posts also show the “Want to try freediving?” box."
+      - label: Cover image
+        name: cover
+        widget: image
+        required: true
+        hint: "The photo on the home page and the blog list. To put photos inside the story, use the image button in the story itself."
+      - label: Excerpt
+        name: excerpt
+        widget: text
+        hint: "One or two sentences for the blog list and the home page. Write it yourself so the card says what you want."
+      - label: Story
+        name: body
+        widget: markdown
+        hint: "Write the post. Use the buttons for a heading, bold, a list, a link, or a photo."
+        buttons:
+          - bold
+          - italic
+          - link
+          - heading-two
+          - heading-three
+          - quote
+          - bulleted-list
+          - numbered-list
+        editor_components:
+          - image
+      - label: Tags
+        name: tags
+        widget: list
+        required: false
+        hint: "Optional extra labels. They show on the post. The category is what the filter uses."
+        field:
+          label: Tag
+          name: tag
+          widget: string
+      - label: Link to the full story elsewhere
+        name: original
+        widget: string
+        required: false
+        hint: "Leave this blank for a normal post. The older travel notes use it to add a “Continue reading on jakelipohar.ca” button."
