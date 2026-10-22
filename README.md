@@ -34,7 +34,7 @@ A few things that are easy to miss:
 The project `jake-lipohar-preview` should build from GitHub so a published post goes live on its own.
 
 1. In Vercel, open the project `jake-lipohar-preview`.
-2. Go to **Settings → Git**. Connect `bstyx/jake-lipohar-site` if it is not connected. Production branch: `main`. Leave automatic deployments on.
+2. Go to **Settings → Git**. Connect `bstyx/Jake-lipohar-site` if it is not connected. Production branch: `main`. Leave automatic deployments on.
 3. **Settings → Build and Deployment**. These match `vercel.json` (the file wins if the dashboard disagrees):
    - Framework preset: **Other**
    - Install command: `npm install`
@@ -79,7 +79,7 @@ Jake signs in with GitHub, and GitHub only lets him publish if his account can w
 
 1. He creates a free GitHub account if he does not have one, and tells you the username.
 2. On this repo, **Settings → Collaborators** → **Add people**. Invite that username with the **Write** role.
-3. He accepts the invite from his email or from [github.com/bstyx/jake-lipohar-site](https://github.com/bstyx/jake-lipohar-site).
+3. He accepts the invite from his email or from [github.com/bstyx/Jake-lipohar-site](https://github.com/bstyx/Jake-lipohar-site).
 4. He opens [www.jakelipohar.ca/admin](https://www.jakelipohar.ca/admin), chooses **Login with GitHub**, and approves the “Jake Lipohar blog” app. The app asks for the `repo` scope so it can save posts.
 
 Publishing commits straight to `main`. If `main` is set to require a pull request, the editor cannot publish and the post will not go live on its own. Write access plus a direct push to `main` is what makes “press Publish” update the website.
@@ -88,7 +88,7 @@ Publishing commits straight to `main`. If `main` is set to require a pull reques
 
 After this repo is on GitHub, the owner still has to:
 
-1. Connect Vercel project `jake-lipohar-preview` to `bstyx/jake-lipohar-site` with the build settings above, and deploy `main`.
+1. Connect Vercel project `jake-lipohar-preview` to `bstyx/Jake-lipohar-site` with the build settings above, and deploy `main`.
 2. Create the GitHub OAuth App with callback `https://www.jakelipohar.ca/api/callback`.
 3. Add `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET` to Vercel Production, then redeploy.
 4. Confirm `www.jakelipohar.ca` is the production domain.

@@ -89,7 +89,7 @@ assert(fs.existsSync(path.join(dist, "admin/index.html")), "admin page was not c
 assert(fs.existsSync(path.join(dist, "admin/config.yml")), "admin config was not copied");
 
 const config = yaml.load(fs.readFileSync(path.join(dist, "admin/config.yml"), "utf8"));
-assert(config.backend.repo === "bstyx/jake-lipohar-site", "CMS repo is wrong");
+assert(config.backend.repo === "bstyx/Jake-lipohar-site", "CMS repo is wrong");
 assert(config.backend.base_url === "https://www.jakelipohar.ca", "CMS base_url is wrong");
 assert(config.backend.auth_endpoint === "api/auth", "CMS auth endpoint is wrong");
 assert(config.backend.branch === "main", "CMS branch is wrong");

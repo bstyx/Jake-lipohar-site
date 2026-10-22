@@ -2,7 +2,7 @@
 # Decap CMS commits Markdown to this repo. Vercel rebuilds the site.
 backend:
   name: github
-  repo: bstyx/jake-lipohar-site
+  repo: bstyx/Jake-lipohar-site
   branch: main
   base_url: https://www.jakelipohar.ca
   auth_endpoint: api/auth
