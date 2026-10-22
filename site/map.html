@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Where I&#x27;ve dived | Jake Lipohar Freediving</title>
+  <meta name="description" content="An interactive map of the cenotes, reefs, quarries, trails and cities from Jake Lipohar&#x27;s travels: where he&#x27;s dived, hiked and wandered.">
+  <meta name="theme-color" content="#04141f">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Where I&#x27;ve dived | Jake Lipohar Freediving">
+  <meta property="og:description" content="An interactive map of the cenotes, reefs, quarries, trails and cities from Jake Lipohar&#x27;s travels: where he&#x27;s dived, hiked and wandered.">
+  <meta property="og:image" content="img/map-preview.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="vendor/leaflet.css">
+</head>
+<body class="subpage">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="nav scrolled solid" id="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="./" aria-label="Jake Lipohar Freediving, home">
+        <svg width="26" height="26" viewBox="0 0 32 32" aria-hidden="true"><path d="M2 12c4-4 8-4 12 0s8 4 12 0M2 20c4-4 8-4 12 0s8 4 12 0" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg>
+        <span>Jake Lipohar</span>
+      </a>
+      <nav aria-label="Main" class="links" id="links">
+        <div class="has-sub" id="courses-menu">
+          <a href="./#programs" class="sub-toggle" id="courses-toggle" aria-haspopup="true" aria-expanded="false">Courses <span class="caret" aria-hidden="true"></span></a>
+          <ul class="sub-menu" aria-label="Courses"><li><a href="courses/discovery.html">Discovery</a></li><li><a href="courses/lap-1.html">Lap 1</a></li><li><a href="courses/wave-1.html">Wave 1</a></li><li><a href="courses/lap-2-wave-2.html">Lap 2 / Wave 2</a></li><li><a href="courses/in-water-coaching.html">In-water Coaching</a></li><li><a href="courses/remote-coaching.html">Remote Coaching</a></li></ul>
+        </div>
+        <a href="./#upcoming">Upcoming</a>
+        <a href="./#about">About Jake</a>
+        <a href="blog.html">Blog</a>
+        <a href="map.html">Map</a>
+        <a href="./#faq">FAQ</a>
+        <a href="./#contact">Message</a>
+      </nav>
+      <a class="btn btn-sm btn-primary nav-cta" href="https://wa.me/16138189927?text=Hi%20Jake%2C%20I%27d%20like%20to%20book%20a%20call%20about%20freediving" data-book target="_blank" rel="noopener">Book a call</a>
+      <button class="burger" id="burger" aria-expanded="false" aria-controls="links" aria-label="Menu"><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="page-hero map-hero">
+      <div class="wrap">
+        <p class="eyebrow">The map</p>
+        <h1>Where I've dived</h1>
+        <p class="lead">Cenotes, coral reefs, frozen quarries, mountain trails and a few big cities. Tap a glowing pin to see the place, and follow the link to the story.</p>
+      </div>
+    </section>
+
+    <section class="map-section" aria-label="Interactive map">
+      <div class="wrap">
+        <div class="map-toolbar">
+          <div class="map-stats" aria-live="polite">
+            <div class="stat"><strong id="stat-places" data-n="54">54</strong><span>places</span></div>
+            <div class="stat"><strong id="stat-countries" data-n="17">17</strong><span>countries</span></div>
+          </div>
+          <div class="map-filters" role="group" aria-label="Filter places">
+            <button class="mchip active" data-layer="all">All <em>54</em></button>
+            <button class="mchip t-dive" data-layer="dive"><i></i>Dive sites <em>16</em></button>
+            <button class="mchip t-hike" data-layer="hike"><i></i>Hikes <em>17</em></button>
+            <button class="mchip t-travel" data-layer="travel"><i></i>Travel <em>21</em></button>
+          </div>
+          <button class="btn btn-sm btn-ghost tour-btn" id="tour-btn" type="button">&#9654; Take the dive tour</button>
+        </div>
+
+        <div class="map-grid">
+          <div class="map-box">
+            <div id="map" role="application" aria-label="World map of places Jake has dived, hiked and travelled"></div>
+            <div class="map-loading" id="map-loading">Loading the map&hellip;</div>
+            <article class="place-card" id="place-card" hidden aria-live="polite">
+              <button class="pc-close" id="pc-close" aria-label="Close">&times;</button>
+              <div class="pc-photo" id="pc-photo"></div>
+              <div class="pc-body">
+                <p class="pc-type" id="pc-type"></p>
+                <h2 id="pc-name"></h2>
+                <p class="pc-where" id="pc-where"></p>
+                <p class="pc-desc" id="pc-desc"></p>
+                <div class="pc-links" id="pc-links"></div>
+              </div>
+            </article>
+            <p class="map-hint" id="map-hint">Pinch, drag and zoom. Tap a pin.</p>
+          </div>
+          <aside class="map-side" aria-label="All places">
+            <ul class="place-list" id="place-list"></ul>
+          </aside>
+        </div>
+        <noscript><p class="map-note">The interactive map needs JavaScript. The full list of places is below.</p></noscript>
+        <p class="map-credit">Every pin comes from the places on Jake's original travel map. Land outlines from Natural Earth (public domain). Some photos are from the same region or the same kind of water rather than the exact spot.</p>
+      </div>
+    </section>
+
+    <section class="section map-cta">
+      <div class="wrap center">
+        <h2>Start in Ottawa, end up anywhere</h2>
+        <p class="lead">Every deep trip starts with the basics. Learn to freedive in the pool and quarry with Jake, then take it somewhere warm.</p>
+        <p class="cta-row"><a class="btn btn-primary btn-lg" href="https://wa.me/16138189927?text=Hi%20Jake%2C%20I%27d%20like%20to%20book%20a%20call%20about%20freediving" data-book target="_blank" rel="noopener">Book a call</a> <a class="btn btn-ghost-dark btn-lg" href="./#programs">See the courses</a></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-cta">
+        <h2>Here to make you the best freediver you can be.</h2>
+        <a class="btn btn-primary btn-lg" href="https://wa.me/16138189927?text=Hi%20Jake%2C%20I%27d%20like%20to%20book%20a%20call%20about%20freediving" data-book target="_blank" rel="noopener">Book a call</a>
+      </div>
+      <div class="footer-links">
+        <div><strong>Courses</strong><a href="courses/discovery.html">Discovery</a><a href="courses/lap-1.html">Lap 1</a><a href="courses/wave-1.html">Wave 1</a><a href="courses/lap-2-wave-2.html">Lap 2 / Wave 2</a><a href="courses/in-water-coaching.html">In-water Coaching</a><a href="courses/remote-coaching.html">Remote Coaching</a></div>
+        <div><strong>Explore</strong><a href="./#upcoming">Upcoming courses</a><a href="./#about">About Jake</a><a href="blog.html">Blog</a><a href="map.html">Where I've dived</a><a href="./#faq">FAQ</a><a href="./#contact">Send a message</a></div>
+      </div>
+      <div class="footer-row">
+        <span>&copy; <span id="year">2026</span> Jake Lipohar</span>
+        <span class="social">
+          <a href="https://instagram.com/jake.freedives" data-instagram rel="noopener" target="_blank">Instagram</a>
+          <a href="https://instagram.com/FreediveOttawa" rel="noopener" target="_blank">@FreediveOttawa</a>
+          <a href="https://wa.me/16138189927" data-whatsapp rel="noopener" target="_blank">WhatsApp</a>
+          <a href="mailto:jakelipohar@gmail.com" data-mailto>Email</a>
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="vendor/leaflet.js"></script>
+  <script src="world.js"></script>
+  <script src="map-data.js"></script>
+  <script src="script.js"></script>
+  <script src="map.js"></script>
+</body>
+</html>
