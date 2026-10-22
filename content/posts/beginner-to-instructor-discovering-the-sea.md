@@ -19,6 +19,8 @@ There I met the rest of the group, and it was so much fun to be the only foreign
 
 We rolled up to the pier and met our boat captain and cooking crew, who gave us a briefing on the whole weekend, in Tagalog, so I had no idea what was going on for a lot of the morning! But we sailed off around 8am and there was coffee, sunshine, and lots of sleepy travelers aboard. As we left view of the island, we were blessed with amazing weather and a pod of dolphins! They swam right up in front of our boat and we were hootin' and hollerin', loving the show that they were giving us! It was such a magical start to the journey. 
 
+![](/img/blog/screenshot-2026-10-22-155657.png "A happy pod and a happy tour group!")
+
 A couple hours into the ride, we pulled up to what was nearly a deserted island - with one small building, a few park wardens, and two dozen other travelers hanging out under the mangrove trees. It was such a magical place, with crystal clear water rolling against the shoreline and nothing but big skies and white sand in sight. It was quite the shock after spending the past four months in New Zealand, and this whole adventure being my very first experience in Southeast Asia. 
 
 We settled in with our tents plopped down directly on the sand, and I can't remember how or when, but I passed out in my tent, in 30 degree heat, with nothing but a sweater under my head… and it was wonderful. Honestly one of the best naps I've ever taken haha. And after waking up, it was time to dive! We jumped back into the boat and took a short ride out and got dropped into the sea. 
