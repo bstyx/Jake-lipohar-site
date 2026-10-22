@@ -5,6 +5,12 @@
   "outputDirectory": "dist",
   "cleanUrls": false,
   "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/config.yml",
+      "destination": "/admin/config.yml"
+    }
+  ],
   "redirects": [
     {
       "source": "/:path*",

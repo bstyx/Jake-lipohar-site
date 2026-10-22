@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
   <title>Write a post | Jake Lipohar</title>
+  <!-- Absolute path. /admin has no trailing slash on Vercel, so a relative config.yml would be requested from the site root and 404. -->
+  <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url">
 </head>
 <body>
   <noscript>The editor needs JavaScript. Open this page in a normal browser.</noscript>

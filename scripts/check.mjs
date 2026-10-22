@@ -87,6 +87,7 @@ assert(read("map.html").includes("map-data.js") && read("map.html").includes("wo
 assert(fs.existsSync(path.join(dist, "vendor/leaflet.js")), "Leaflet is not in the build");
 assert(fs.existsSync(path.join(dist, "admin/index.html")), "admin page was not copied");
 assert(fs.existsSync(path.join(dist, "admin/config.yml")), "admin config was not copied");
+assert(read("admin/index.html").includes('rel="cms-config-url"') && read("admin/index.html").includes('href="/admin/config.yml"'), "admin must load /admin/config.yml by absolute URL");
 
 const config = yaml.load(fs.readFileSync(path.join(dist, "admin/config.yml"), "utf8"));
 assert(config.backend.repo === "bstyx/Jake-lipohar-site", "CMS repo is wrong");
